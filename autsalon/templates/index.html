@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autsalon - Avtomobillar va Brendlar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Autsalon</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Brendlar:</h2>
+                <ul class="list-group">
+                    {% for brand in brands %}
+                        <li class="list-group-item">
+                            <a href="{% url 'brand_detail' brand.id %}">{{ brand.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Avtomobillar:</h2>
+                <ul class="list-group">
+                    {% for car in cars %}
+                        <li class="list-group-item">
+                            <a href="{% url 'car_detail' car.id %}">{{ car.model_name }} ({{ car.year }}) - {{ car.price }} so'm</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {% if brand %}
+            <h2 class="mt-5">{{ brand.name }}</h2>
+            <p>{{ brand.description }}</p>
+            <h3>Bu Brendga Tegishli Avtomobillar:</h3>
+            <ul class="list-group">
+                {% for car in cars %}
+                    <li class="list-group-item">
+                        <a href="{% url 'car_detail' car.id %}">{{ car.model_name }} ({{ car.year }}) - {{ car.price }} so'm</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if car %}
+            <h2 class="mt-5">{{ car.model_name }} ({{ car.year }})</h2>
+            <p><strong>Tavsif:</strong> {{ car.description }}</p>
+            <p><strong>Price:</strong> {{ car.price }} so'm</p>
+            <p><strong>Brend:</strong> {{ car.brand.name }}</p>
+        {% endif %}
+    </div>
+
+
+</body>
+</html>
